@@ -1,0 +1,20 @@
+# OPTIONAL: only needed if you want to use PostgreSQL instead of the
+# default SQLite database. Run with: docker compose up -d
+# Then set DATABASE_URL in backend/.env to:
+#   postgresql+psycopg2://postgres:postgres@localhost:5432/recruitment
+version: "3.8"
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: recruitment
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

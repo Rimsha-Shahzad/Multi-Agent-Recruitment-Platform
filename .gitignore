@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+recruitment.db
+
+# Node / Next.js
+node_modules/
+.next/
