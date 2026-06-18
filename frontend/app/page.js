@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./globals.css";
 
 // 🔗 TARGET TUNNEL ENVIRONMENT GATEWAY
-const API_URL = 'https://black-shrimp-41.loca.lt';
+const API_URL = 'https://rimshasairecruitment.loca.lt';
 
 const STAGES = [
   { key: "persona", name: "Persona Agent", desc: "Profiles the ideal candidate for this role." },
