@@ -3,6 +3,9 @@
 import { useState } from "react";
 import "./globals.css";
 
+// 🔗 TARGET TUNNEL ENVIRONMENT GATEWAY
+const API_URL = 'https://black-shrimp-41.loca.lt';
+
 const STAGES = [
   { key: "persona", name: "Persona Agent", desc: "Profiles the ideal candidate for this role." },
   { key: "job_ad", name: "Content Agent", desc: "Writes the job ad headline and copy." },
@@ -28,47 +31,54 @@ export default function Home() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); 
     setError(null);
     setResult(null);
     try {
-      const res = await fetch("/api/campaigns/run", {
+      // 🎯 TARGETED DIRECT ABSOLUTE ROUTE
+      const res = await fetch(`${API_URL}/api/campaigns/run`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          // 🛡️ SECURITY BYPASS FOR BOTH INTERSTITIAL TUNNEL ENGINES
+          "ngrok-skip-browser-warning": "true",
+          "Bypass-Tunnel-Reminder": "true" 
+        },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error(`Server responded with ${res.status}`);
+      if (!res.ok) throw new Error(`Server responded with code: ${res.status}`);
       const data = await res.json();
       setResult(data);
     } catch (err) {
       setError(
-        `Could not reach the backend (${err.message}). Make sure the FastAPI server is running on http://localhost:8000.`
+        `Could not reach backend at ${API_URL} (${err.message}). Ensure your Python backend terminal is running on port 8005.`
       );
     } finally {
       setLoading(false);
     }
   }
 
-  // Helper function to turn mock tracking URLs into real working search strings
   function getRealUrl(channel, jobTitle, location) {
-    const query = encodeURIComponent(`${jobTitle} ${location}`);
+    const cleanTitle = encodeURIComponent(jobTitle);
+    const cleanLocation = encodeURIComponent(location);
+    const fullQuery = encodeURIComponent(`${jobTitle} ${location}`);
+
     if (channel.toLowerCase() === "linkedin") {
-      return `https://www.linkedin.com/jobs/search/?keywords=${query}`;
+      return `https://www.linkedin.com/jobs/search/?keywords=${cleanTitle}&location=${cleanLocation}`;
     }
     if (channel.toLowerCase() === "indeed") {
-      return `https://pk.indeed.com/jobs?q=${encodeURIComponent(jobTitle)}&l=${encodeURIComponent(location)}`;
+      return `https://pk.indeed.com/jobs?q=${cleanTitle}&l=${cleanLocation}`;
     }
     if (channel.toLowerCase() === "google jobs") {
-      return `https://www.google.com/search?q=${query}+jobs`;
+      return `https://www.google.com/search?q=${fullQuery}+jobs`;
     }
-    // Company careers page fallback to a live public job board template
     return `https://www.google.com/search?q=${encodeURIComponent(form.company)}+careers`;
   }
 
   return (
     <main className="page">
       <p className="eyebrow">AI-Powered Recruitment Marketing Platform</p>
-      <h1 className="title">Agent Pipeline Dashboard</h1>
+      <h1 className="title">Agent Pipeline Dashboard V3 FORCE CLEAN</h1>
       <p className="subtitle">
         Enter a role below and run it through the five-agent LangGraph pipeline:
         persona profiling, ad generation, multi-channel distribution, lead
@@ -148,7 +158,6 @@ export default function Home() {
             <div className="card">
               <h3>{result.job_ad.headline}</h3>
               <div className="job-ad-body">{result.job_ad.body}</div>
-              {/* FIXED: Turning plain CTA into a completely live, clickable link button */}
               <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
                 <a 
                   href={getRealUrl("linkedin", form.job_title, form.location)} 
@@ -171,7 +180,6 @@ export default function Home() {
                   <div className="channel-card" key={p.channel}>
                     <div className="channel-name">{p.channel}</div>
                     <div className="channel-status">{p.status}</div>
-                    {/* FIXED: Swapping broken mock paths out for real, seamless platform routing queries */}
                     <a 
                       className="channel-url" 
                       href={getRealUrl(p.channel, form.job_title, form.location)} 

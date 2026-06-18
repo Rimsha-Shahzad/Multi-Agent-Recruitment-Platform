@@ -2,7 +2,7 @@
 FastAPI backend for the AI-Powered Recruitment Marketing Platform.
 
 Run with:
-    uvicorn main:app --reload --port 8000
+    uvicorn main:app --reload --port 8005
 
 Endpoints:
     POST /api/campaigns/run   -> runs the full 5-agent LangGraph pipeline
@@ -21,13 +21,21 @@ from graph import run_pipeline
 
 app = FastAPI(title="AI-Powered Recruitment Marketing Platform")
 
-# Allow the Next.js dev server to call this API
+# 🛡️ FIX: Explicitly grant access to your Netlify App and allow Tunnel Overrides
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://aipoweredrecruitmentplatform.netlify.app",
+        "http://localhost:3000"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=[
+        "Content-Type",
+        "Authorization",
+        "ngrok-skip-browser-warning",
+        "Bypass-Tunnel-Reminder"
+    ],
 )
 
 
