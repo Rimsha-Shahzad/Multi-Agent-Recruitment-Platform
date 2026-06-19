@@ -6,7 +6,7 @@ import "./globals.css";
 // 🔗 DYNAMIC GATEWAY: Automatically switches between local testing and your active live tunnel
 const API_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost'
   ? 'http://localhost:8005'
-  : 'https://popular-panda-64.loca.lt';
+  : 'https://poor-flies-drop.loca.lt';;
 
 const STAGES = [
   { key: "persona", name: "Persona Agent", desc: "Profiles the ideal candidate for this role." },
