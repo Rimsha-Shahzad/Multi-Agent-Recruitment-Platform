@@ -21,13 +21,10 @@ from graph import run_pipeline
 
 app = FastAPI(title="AI-Powered Recruitment Marketing Platform")
 
-# 🛡️ FIX: Explicitly grant access to your Netlify App and allow Tunnel Overrides
+# 🛡️ FIXED CORS MIDDLEWARE: Standardized to accept any client origin (Vercel, Netlify, and Localhost)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://aipoweredrecruitmentplatform.netlify.app",
-        "http://localhost:3000"
-    ],
+    allow_origins=["*"],  # 🚀 Allows your live Vercel URL to connect flawlessly!
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=[

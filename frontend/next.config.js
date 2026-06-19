@@ -1,8 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // 🚀 Forces Next.js to build static HTML/CSS/JS pages
-  images: {
-    unoptimized: true, // Required for static exports
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/api/:path*`,
+      },
+    ];
   },
 };
 
