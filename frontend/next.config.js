@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  output: 'export', // 🚀 Forces Next.js to build static HTML/CSS/JS pages
   images: {
-    unoptimized: true,
+    unoptimized: true, // Required for static exports
   },
 };
 
