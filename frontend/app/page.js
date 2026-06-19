@@ -8,7 +8,7 @@ const API_URL = 'https://rimshasairecruitment.loca.lt';
 
 const STAGES = [
   { key: "persona", name: "Persona Agent", desc: "Profiles the ideal candidate for this role." },
-  { key: "job_ad", name: "Content Agent", desc: "Writes the job ad headline and copy." },
+  { key: "job_ad", name: "Constent Agent", desc: "Writes the job ad headline and copy." },
   { key: "postings", name: "Distribution Agent", desc: "Posts the ad across job channels." },
   { key: "leads", name: "Engagement Agent", desc: "Sources and nurtures candidate leads." },
   { key: "analytics", name: "Analytics Agent", desc: "Tracks pipeline performance metrics." },
